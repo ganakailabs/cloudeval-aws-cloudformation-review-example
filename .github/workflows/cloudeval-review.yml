@@ -32,7 +32,7 @@ jobs:
           mode: review
           repo: ${{ github.repository }}
           ref: ${{ github.head_ref || github.ref_name }}
-          commit_sha: ${{ github.sha }}
+          commit_sha: ${{ github.event.pull_request.head.sha || github.sha }}
           ai_summary: true
           post_pr_comment: true
           upload_artifacts: true
