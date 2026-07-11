@@ -37,9 +37,9 @@ Use these PRs to verify the complete gating behavior:
 
 | PR | Expected result | What it demonstrates |
 | --- | --- | --- |
-| Passing baseline | Pass | CloudFormation YAML and JSON sync, posture review, PR comment, and artifacts. |
-| Public access regression | Fail | High-risk S3, security group, and database exposure findings block the gate. |
-| Deployment-quality regression | Fail | cfn-lint catches invalid CloudFormation references and blocks the gate. |
+| [Passing baseline](https://github.com/ganakailabs/cloudeval-aws-cloudformation-review-example/pull/1) | Pass | CloudFormation YAML and JSON sync, posture review, PR comment, and artifacts. |
+| [Public access regression](https://github.com/ganakailabs/cloudeval-aws-cloudformation-review-example/pull/2) | Fail | High-risk S3, security group, and database exposure findings block the gate. |
+| [Deployment-quality regression](https://github.com/ganakailabs/cloudeval-aws-cloudformation-review-example/pull/3) | Fail | cfn-lint catches invalid CloudFormation references and blocks the gate. |
 
 The passing baseline PR intentionally keeps infrastructure unchanged. Use it to verify that GitHub sync, PR-head commit review, comments, and artifacts work before tightening gates.
 

@@ -10,6 +10,16 @@
   "Resources": {
     "AuditLogBucket": {
       "Type": "AWS::S3::Bucket",
+      "Metadata": {
+        "checkov": {
+          "skip": [
+            {
+              "id": "CKV_AWS_18",
+              "comment": "Dedicated audit-log destination bucket for this review fixture."
+            }
+          ]
+        }
+      },
       "Properties": {
         "BucketEncryption": {
           "ServerSideEncryptionConfiguration": [
