@@ -1,0 +1,29 @@
+version: 1
+
+stacks:
+  - id: aws-webapp-yaml
+    name: AWS web application stack
+    entry: templates/webapp.yaml
+  - id: aws-storage-json
+    name: AWS storage stack
+    entry: templates/storage.json
+
+analysis:
+  auto_resolve_on_import: true
+  auto_refresh_on_resolve: true
+
+ci:
+  gates:
+    enforcement: block_pull_request
+    fail_when_high_risk_findings_exist: true
+    fail_when_validation_fails: true
+    # Compatibility keys read by older CloudEval action/CLI versions.
+    fail_on_high_risk: true
+    fail_on_validation_errors: true
+  review:
+    outputs:
+      pdf:
+        enabled: true
+        report_type: all
+        verbosity: evidence
+        fail_on_error: false

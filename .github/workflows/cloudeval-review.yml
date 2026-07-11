@@ -1,0 +1,41 @@
+name: CloudEval infrastructure review
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    env:
+      CLOUDEVAL_REVIEW_CONFIGURED: ${{ secrets.CLOUDEVAL_ACCESS_KEY != '' && secrets.CLOUDEVAL_PROJECT_ID != '' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Explain skipped CloudEval review
+        if: ${{ env.CLOUDEVAL_REVIEW_CONFIGURED != 'true' }}
+        run: |
+          echo "CloudEval review skipped because CLOUDEVAL_ACCESS_KEY and CLOUDEVAL_PROJECT_ID are not configured."
+
+      - name: Run CloudEval review
+        if: ${{ env.CLOUDEVAL_REVIEW_CONFIGURED == 'true' }}
+        uses: ganakailabs/cloudeval-action@v1
+        with:
+          access_key: ${{ secrets.CLOUDEVAL_ACCESS_KEY }}
+          project_id: ${{ secrets.CLOUDEVAL_PROJECT_ID }}
+          mode: review
+          repo: ${{ github.repository }}
+          ref: ${{ github.ref_name }}
+          commit_sha: ${{ github.sha }}
+          ai_summary: true
+          post_pr_comment: true
+          upload_artifacts: true
+          include_run_metadata: true
+          artifact_name: cloudeval-aws-cloudformation-review
+          artifact_retention_days: 14
