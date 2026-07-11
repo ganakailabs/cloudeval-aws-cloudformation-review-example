@@ -31,7 +31,7 @@ jobs:
           project_id: ${{ secrets.CLOUDEVAL_PROJECT_ID }}
           mode: review
           repo: ${{ github.repository }}
-          ref: ${{ github.ref_name }}
+          ref: ${{ github.head_ref || github.ref_name }}
           commit_sha: ${{ github.sha }}
           ai_summary: true
           post_pr_comment: true
