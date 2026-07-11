@@ -265,6 +265,11 @@ Resources:
 
   AccessLogBucket:
     Type: AWS::S3::Bucket
+    Metadata:
+      checkov:
+        skip:
+          - id: CKV_AWS_18
+            comment: Dedicated access-log destination bucket for this review fixture.
     Properties:
       BucketEncryption:
         ServerSideEncryptionConfiguration:
