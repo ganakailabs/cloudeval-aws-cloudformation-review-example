@@ -41,6 +41,8 @@ Use these PRs to verify the complete gating behavior:
 | Public access regression | Fail | High-risk S3, security group, and database exposure findings block the gate. |
 | Deployment-quality regression | Fail | cfn-lint catches invalid CloudFormation references and blocks the gate. |
 
+The passing baseline PR intentionally keeps infrastructure unchanged. Use it to verify that GitHub sync, PR-head commit review, comments, and artifacts work before tightening gates.
+
 ## Local smoke tests
 
 Run these before pushing template changes:
