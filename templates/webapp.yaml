@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: CloudEval AWS CloudFormation review example with VPC, ALB, EC2, RDS, Lambda, and S3.
+Description: Cloudeval AWS CloudFormation review example with VPC, ALB, EC2, RDS, Lambda, and S3.
 
 Parameters:
   EnvironmentName:
