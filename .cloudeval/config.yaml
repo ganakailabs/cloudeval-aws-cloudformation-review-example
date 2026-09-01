@@ -17,7 +17,7 @@ ci:
     enforcement: block_pull_request
     fail_when_high_risk_findings_exist: true
     fail_when_validation_fails: true
-    # Compatibility keys read by older CloudEval action/CLI versions.
+    # Compatibility keys read by older Cloudeval action/CLI versions.
     fail_on_high_risk: true
     fail_on_validation_errors: true
   review:

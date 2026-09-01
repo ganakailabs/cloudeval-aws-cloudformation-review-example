@@ -1,4 +1,4 @@
-name: CloudEval infrastructure review
+name: Cloudeval infrastructure review
 
 on:
   pull_request:
@@ -18,12 +18,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Explain skipped CloudEval review
+      - name: Explain skipped Cloudeval review
         if: ${{ env.CLOUDEVAL_REVIEW_CONFIGURED != 'true' }}
         run: |
-          echo "CloudEval review skipped because CLOUDEVAL_ACCESS_KEY and CLOUDEVAL_PROJECT_ID are not configured."
+          echo "Cloudeval review skipped because CLOUDEVAL_ACCESS_KEY and CLOUDEVAL_PROJECT_ID are not configured."
 
-      - name: Run CloudEval review
+      - name: Run Cloudeval review
         if: ${{ env.CLOUDEVAL_REVIEW_CONFIGURED == 'true' }}
         uses: ganakailabs/cloudeval-action@v1
         with:

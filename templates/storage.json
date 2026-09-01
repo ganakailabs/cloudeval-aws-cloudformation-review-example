@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "Secondary JSON CloudFormation template for CloudEval AWS review coverage.",
+  "Description": "Secondary JSON CloudFormation template for Cloudeval AWS review coverage.",
   "Parameters": {
     "EnvironmentName": {
       "Type": "String",
@@ -52,7 +52,7 @@
           },
           {
             "Key": "Purpose",
-            "Value": "CloudEval AWS JSON parser coverage"
+            "Value": "Cloudeval AWS JSON parser coverage"
           }
         ],
         "VersioningConfiguration": {
