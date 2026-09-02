@@ -47,7 +47,7 @@ jobs:
 
       - name: Upload Cloudeval SARIF
         if: ${{ always() && env.CLOUDEVAL_REVIEW_CONFIGURED == 'true' && steps.cloudeval.outputs.sarif_path != '' }}
-        uses: github/codeql-action/upload-sarif@15bb31a4e9285bb9f3d0d49d48056d0678cefc2c
+        uses: github/codeql-action/upload-sarif@6f5948dfacef28e207b48d0905cf90c03365536d
         with:
           sarif_file: ${{ steps.cloudeval.outputs.sarif_path }}
           category: cloudeval-cloudformation
