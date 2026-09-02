@@ -8,6 +8,7 @@ permissions:
   contents: read
   pull-requests: write
   issues: write
+  security-events: write
 
 jobs:
   review:
@@ -24,6 +25,7 @@ jobs:
           echo "Cloudeval review skipped because CLOUDEVAL_ACCESS_KEY and CLOUDEVAL_PROJECT_ID are not configured."
 
       - name: Run Cloudeval review
+        id: cloudeval
         if: ${{ env.CLOUDEVAL_REVIEW_CONFIGURED == 'true' }}
         uses: ganakailabs/cloudeval-action@v1
         with:
@@ -35,7 +37,17 @@ jobs:
           commit_sha: ${{ github.event.pull_request.head.sha || github.sha }}
           ai_summary: true
           post_pr_comment: true
+          github_checks: true
+          sarif: true
+          checks_annotation_limit: 20
           upload_artifacts: true
           include_run_metadata: true
           artifact_name: cloudeval-aws-cloudformation-review
           artifact_retention_days: 14
+
+      - name: Upload Cloudeval SARIF
+        if: ${{ always() && env.CLOUDEVAL_REVIEW_CONFIGURED == 'true' && steps.cloudeval.outputs.sarif_path != '' }}
+        uses: github/codeql-action/upload-sarif@6f5948dfacef28e207b48d0905cf90c03365536d
+        with:
+          sarif_file: ${{ steps.cloudeval.outputs.sarif_path }}
+          category: cloudeval-cloudformation
