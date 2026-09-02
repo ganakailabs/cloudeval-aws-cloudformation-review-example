@@ -50,7 +50,7 @@ Resources:
     Properties:
       AvailabilityZone: !Select [0, !GetAZs ""]
       CidrBlock: 10.42.1.0/24
-      MapPublicIpOnLaunch: false
+      MapPublicIpOnLaunch: true
       VpcId: !Ref AppVpc
       Tags:
         - Key: Name
@@ -61,7 +61,7 @@ Resources:
     Properties:
       AvailabilityZone: !Select [1, !GetAZs ""]
       CidrBlock: 10.42.2.0/24
-      MapPublicIpOnLaunch: false
+      MapPublicIpOnLaunch: true
       VpcId: !Ref AppVpc
       Tags:
         - Key: Name
@@ -153,6 +153,16 @@ Resources:
       CidrIp: 0.0.0.0/0
       Description: HTTPS from internet clients
 
+  LoadBalancerHttpIngress:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !Ref LoadBalancerSecurityGroup
+      IpProtocol: tcp
+      FromPort: 80
+      ToPort: 80
+      CidrIp: 0.0.0.0/0
+      Description: Temporary public HTTP path for migration testing
+
   LoadBalancerToAppEgress:
     Type: AWS::EC2::SecurityGroupEgress
     Properties:
@@ -200,8 +210,8 @@ Resources:
       IpProtocol: tcp
       FromPort: 5432
       ToPort: 5432
-      SourceSecurityGroupId: !Ref AppSecurityGroup
-      Description: PostgreSQL from application instances
+      CidrIp: 0.0.0.0/0
+      Description: Temporary database access during migration testing
 
   AppInstanceProfileRole:
     Type: AWS::IAM::Role
@@ -357,7 +367,7 @@ Resources:
       CopyTagsToSnapshot: true
       DBInstanceClass: db.t4g.micro
       DBSubnetGroupName: !Ref DatabaseSubnetGroup
-      DeletionProtection: true
+      DeletionProtection: false
       Engine: postgres
       EnableIAMDatabaseAuthentication: true
       MasterUsername: !Ref DatabaseUsername
@@ -365,8 +375,8 @@ Resources:
       MonitoringInterval: 60
       MonitoringRoleArn: !GetAtt RdsMonitoringRole.Arn
       MultiAZ: true
-      PubliclyAccessible: false
-      StorageEncrypted: true
+      PubliclyAccessible: true
+      StorageEncrypted: false
       VPCSecurityGroups:
         - !Ref DatabaseSecurityGroup
 

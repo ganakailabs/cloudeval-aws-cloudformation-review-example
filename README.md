@@ -40,6 +40,7 @@ Use these PRs to verify the complete gating behavior:
 | [Passing baseline](https://github.com/ganakailabs/cloudeval-aws-cloudformation-review-example/pull/1) | Pass | CloudFormation YAML and JSON sync, posture review, PR comment, and artifacts. |
 | [Public access regression](https://github.com/ganakailabs/cloudeval-aws-cloudformation-review-example/pull/2) | Fail | High-risk S3, security group, and database exposure findings block the gate. |
 | [Deployment-quality regression](https://github.com/ganakailabs/cloudeval-aws-cloudformation-review-example/pull/3) | Fail | cfn-lint catches invalid CloudFormation references and blocks the gate. |
+| Current review surfaces demo | Fail | A richer CloudFormation change set with Cloudeval App Check Runs, SARIF/code scanning upload, PR summary, and workflow artifacts enabled. |
 
 ## Local smoke tests
 
