@@ -129,7 +129,12 @@ Resources:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: Allow application traffic from the load balancer only.
-      SecurityGroupIngress: []
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+          Description: Temporary public SSH access for debugging
       SecurityGroupEgress: []
       VpcId: !Ref AppVpc
 
@@ -274,10 +279,10 @@ Resources:
         Rules:
           - ObjectOwnership: BucketOwnerEnforced
       PublicAccessBlockConfiguration:
-        BlockPublicAcls: true
-        BlockPublicPolicy: true
-        IgnorePublicAcls: true
-        RestrictPublicBuckets: true
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
       VersioningConfiguration:
         Status: Enabled
 
@@ -353,11 +358,11 @@ Resources:
     UpdateReplacePolicy: Snapshot
     Properties:
       AllocatedStorage: "20"
-      BackupRetentionPeriod: 7
+      BackupRetentionPeriod: 0
       CopyTagsToSnapshot: true
       DBInstanceClass: db.t4g.micro
       DBSubnetGroupName: !Ref DatabaseSubnetGroup
-      DeletionProtection: true
+      DeletionProtection: false
       Engine: postgres
       EnableIAMDatabaseAuthentication: true
       MasterUsername: !Ref DatabaseUsername
@@ -365,8 +370,8 @@ Resources:
       MonitoringInterval: 60
       MonitoringRoleArn: !GetAtt RdsMonitoringRole.Arn
       MultiAZ: true
-      PubliclyAccessible: false
-      StorageEncrypted: true
+      PubliclyAccessible: true
+      StorageEncrypted: false
       VPCSecurityGroups:
         - !Ref DatabaseSecurityGroup
 
