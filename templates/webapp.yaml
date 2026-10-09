@@ -337,7 +337,7 @@ Resources:
         - !Ref WebTargetGroup
       VPCZoneIdentifier:
         - !Ref PrivateSubnetA
-        - !Ref PrivateSubnetB
+        - !Ref MissingPrivateSubnetB
 
   DatabaseSubnetGroup:
     Type: AWS::RDS::DBSubnetGroup
